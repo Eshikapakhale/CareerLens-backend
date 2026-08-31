@@ -4,8 +4,25 @@ const cors = require("cors")
 
 const app = express();
 
+const allowedOrigins = [
+    "http://localhost:5173",
+    "https://career-lens-frontend.vercel.app",
+    /https:\/\/career-lens-frontend.*\.vercel\.app$/
+]
+
 app.use(cors({
-    origin: "http://localhost:5173",
+    origin: function (origin, callback) {
+        // allow requests with no origin (like mobile apps, curl, Postman)
+        if (!origin) return callback(null, true)
+        const isAllowed = allowedOrigins.some(allowed =>
+            typeof allowed === "string" ? allowed === origin : allowed.test(origin)
+        )
+        if (isAllowed) {
+            callback(null, true)
+        } else {
+            callback(new Error("Not allowed by CORS: " + origin))
+        }
+    },
     credentials: true
 }))
 
