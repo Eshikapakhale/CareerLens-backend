@@ -6,7 +6,7 @@ const app = express();
 
 const allowedOrigins = [
     "http://localhost:5173",
-    "https://career-lens-frontend.vercel.app",
+    "https://career-lens-frontend-pink.vercel.app",
     /https:\/\/career-lens-frontend.*\.vercel\.app$/
 ]
 
